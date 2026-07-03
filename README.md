@@ -2,6 +2,14 @@
 
 A multi-role (Patient / Doctor / Admin) platform for booking appointments, capturing pre-visit symptoms, generating AI summaries, and keeping everyone notified via email and Google Calendar.
 
+## 📸 Screenshots
+
+<p align="center">
+  <img src="./screenshot-1.png" width="30%" alt="Screenshot 1" />
+  <img src="./screenshot-2.png" width="30%" alt="Screenshot 2" />
+  <img src="./screenshot-3.png" width="30%" alt="Screenshot 3" />
+</p>
+
 ## ✨ Features
 
 - **Smart Booking Engine** — Concurrency-safe slot booking with DB-level unique constraints + serializable transactions
@@ -192,12 +200,24 @@ Both prompts are stored in `backend/src/prompts/` and enforce structured JSON ou
 
 ## 📅 Google Calendar Setup
 
-1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Create a project → Enable "Google Calendar API"
-3. Create OAuth 2.0 credentials (Web application)
-4. Set redirect URI: `http://localhost:5000/api/auth/google/callback`
-5. Add `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` to `.env`
-6. Users connect their calendar from the app settings
+To enable two-way Google Calendar synchronization for doctors and patients:
+
+1. Go to the [Google Cloud Console](https://console.cloud.google.com/).
+2. Create a new project or select an existing one.
+3. Navigate to **APIs & Services > Library** and enable the **Google Calendar API**.
+4. Go to **APIs & Services > Credentials**.
+5. Click **Create Credentials > OAuth client ID**.
+6. Select **Web application** as the application type.
+7. Under **Authorized redirect URIs**, add your backend callback URL:
+   - *Local:* `http://localhost:5000/api/auth/google/callback`
+   - *Production:* `https://your-backend-url.onrender.com/api/auth/google/callback`
+8. Copy your **Client ID** and **Client Secret** and add them to your `backend/.env` file:
+   ```env
+   GOOGLE_CLIENT_ID="your-client-id"
+   GOOGLE_CLIENT_SECRET="your-client-secret"
+   GOOGLE_REDIRECT_URI="https://your-backend-url.onrender.com/api/auth/google/callback"
+   ```
+9. Users can now securely connect their Google Calendars from the dashboard!
 
 ---
 

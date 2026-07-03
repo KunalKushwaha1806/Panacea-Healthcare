@@ -73,7 +73,7 @@ export class BookingController {
   async confirmBooking(req: AuthRequest, res: Response): Promise<void> {
     try {
       const result = await bookingService.confirmBooking(
-        req.params.id,
+        req.params.id as string,
         req.user!.userId
       );
       sendSuccess(res, result, 'Appointment confirmed successfully');
@@ -105,7 +105,7 @@ export class BookingController {
     try {
       const input = cancelBookingSchema.parse(req.body);
       const result = await bookingService.cancelBooking(
-        req.params.id,
+        req.params.id as string,
         req.user!.userId,
         input.reason
       );
@@ -134,7 +134,7 @@ export class BookingController {
     try {
       const input = rescheduleBookingSchema.parse(req.body);
       const result = await bookingService.rescheduleBooking(
-        req.params.id,
+        req.params.id as string,
         req.user!.userId,
         input.newSlotStart
       );
@@ -200,7 +200,7 @@ export class BookingController {
   async submitSymptomForm(req: AuthRequest, res: Response): Promise<void> {
     try {
       const input = symptomFormSchema.parse(req.body);
-      const appointmentId = req.params.id;
+      const appointmentId = req.params.id as string;
 
       const appointment = await prisma.appointment.findUnique({
         where: { id: appointmentId },

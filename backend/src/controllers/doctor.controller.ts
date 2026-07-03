@@ -43,7 +43,7 @@ export class DoctorController {
   async submitPostVisitNotes(req: AuthRequest, res: Response): Promise<void> {
     try {
       const input = postVisitNotesSchema.parse(req.body);
-      const appointmentId = req.params.id;
+      const appointmentId = req.params.id as string;
 
       // Verify the appointment belongs to this doctor
       const doctorProfile = await prisma.doctorProfile.findUnique({
@@ -154,7 +154,7 @@ export class DoctorController {
   async approvePostVisitSummary(req: AuthRequest, res: Response): Promise<void> {
     try {
       const { approved } = approvePostVisitSummarySchema.parse(req.body);
-      const appointmentId = req.params.id;
+      const appointmentId = req.params.id as string;
 
       const summary = await prisma.postVisitSummary.findUnique({
         where: { appointmentId },
@@ -182,7 +182,7 @@ export class DoctorController {
   async getPostVisitSummary(req: AuthRequest, res: Response): Promise<void> {
     try {
       const summary = await prisma.postVisitSummary.findUnique({
-        where: { appointmentId: req.params.id },
+        where: { appointmentId: req.params.id as string },
       });
 
       if (!summary) {

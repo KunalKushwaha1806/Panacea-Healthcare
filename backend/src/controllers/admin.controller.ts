@@ -36,7 +36,7 @@ export class AdminController {
   async updateDoctor(req: AuthRequest, res: Response): Promise<void> {
     try {
       const input = updateDoctorSchema.parse(req.body);
-      const doctor = await adminService.updateDoctor(req.params.id, input);
+      const doctor = await adminService.updateDoctor(req.params.id as string, input);
       sendSuccess(res, doctor, 'Doctor updated successfully');
     } catch (err: any) {
       if (err.name === 'ZodError') {
@@ -56,7 +56,7 @@ export class AdminController {
    */
   async deleteDoctor(req: AuthRequest, res: Response): Promise<void> {
     try {
-      await adminService.deleteDoctor(req.params.id);
+      await adminService.deleteDoctor(req.params.id as string);
       sendSuccess(res, null, 'Doctor deleted successfully');
     } catch (err: any) {
       if (err.message === 'DOCTOR_NOT_FOUND') {
@@ -84,7 +84,7 @@ export class AdminController {
    */
   async getDoctorById(req: AuthRequest, res: Response): Promise<void> {
     try {
-      const doctor = await adminService.getDoctorById(req.params.id);
+      const doctor = await adminService.getDoctorById(req.params.id as string);
       sendSuccess(res, doctor);
     } catch (err: any) {
       if (err.message === 'DOCTOR_NOT_FOUND') {
@@ -102,7 +102,7 @@ export class AdminController {
     try {
       const input = markLeaveSchema.parse(req.body);
       const dates = input.dates.map(d => new Date(d));
-      const result = await adminService.markLeave(req.params.id, dates);
+      const result = await adminService.markLeave(req.params.id as string, dates);
       sendSuccess(res, result, 
         result.cancelledAppointments.length > 0
           ? `Leave marked. ${result.cancelledAppointments.length} appointment(s) cancelled and patients notified.`

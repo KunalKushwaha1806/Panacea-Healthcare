@@ -1,5 +1,7 @@
 # Panacea Healthcare — Appointment & Follow-up Manager
 
+### Link: https://panacea-healthcare.vercel.app/
+
 A multi-role (Patient / Doctor / Admin) platform for booking appointments, capturing pre-visit symptoms, generating AI summaries, and keeping everyone notified via email and Google Calendar.
 
 ## 📸 Screenshots

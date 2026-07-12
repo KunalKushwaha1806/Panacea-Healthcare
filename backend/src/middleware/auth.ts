@@ -14,8 +14,9 @@ export interface AuthRequest extends Request {
 }
 
 /**
- * Verify JWT token from Authorization header.
+ * Verify JWT token from Authorization header.           
  * Attaches decoded payload to req.user.
+ * forbidden if token is invalid or expired.
  */
 export function authenticate(req: AuthRequest, res: Response, next: NextFunction): void {
   const authHeader = req.headers.authorization;
